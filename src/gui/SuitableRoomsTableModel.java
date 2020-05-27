@@ -29,9 +29,6 @@ public class SuitableRoomsTableModel extends DefaultTableModel{
 	private List<HotelRoom> data = allRooms;
 	private static final String[] COL_NAMES = {"Værelsesnummer", "Type" , "Enkeltsenge", "Dobbeltsenge", "Pris"};
 	
-	public SuitableRoomsTableModel() {
-		roomctr.updateRoomBookings();
-	}
 	
 	@Override
 	public int getColumnCount() {

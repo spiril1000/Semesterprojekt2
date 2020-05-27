@@ -13,8 +13,6 @@ public interface RoomCtrIF {
 
 	List<Room> getAllRooms();
 
-	void updateRoomBookings();
-
 	List<ConferenceRoom> getAllConferenceRooms();
 
 	List<EventRoom> getAllEventRooms();

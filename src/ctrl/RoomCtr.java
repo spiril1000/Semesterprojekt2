@@ -63,30 +63,8 @@ public class RoomCtr implements RoomCtrIF {
 		return filtered;
 	}
 	*/ 
+
 	
-	@Override
-	public void updateRoomBookings() {
-		List<Booking> bookings=  new BookingCtr().getAllBookings();
-		try {
-		List<Room> rooms;
-		rooms = rDB.getAllRooms();
-		for (Room r : rooms) {
-			r.getConnectedBookings().clear();
-			for (Booking b : bookings) {
-				if (r == b.getR()) {
-					r.addBooking(b);
-				}
-			} 
-		 }
-		
-		} catch (DataAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		 
-	}
 
 	@Override
 	public List<ConferenceRoom> getAllConferenceRooms() {

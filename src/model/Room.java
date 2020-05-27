@@ -7,16 +7,12 @@ public abstract class Room {
 	protected double price;
 	protected int roomNumber;
 	protected Calendar lastCleaned;
-	protected ArrayList<Booking> connectedBookings = new ArrayList<>();
 	
 	
 	public Room() {
 		
 	}
 	
-	public void addBooking(Booking b) {
-		connectedBookings.add(b);
-	}
 	
 	public double getPrice() {
 		return price;
@@ -52,8 +48,5 @@ public abstract class Room {
 		this.roomNumber = roomNumber;
 	}
 	
-	public ArrayList<Booking> getConnectedBookings() {
-		return connectedBookings; //Skal returnere originalen for .clear()
-	}
 	
 }

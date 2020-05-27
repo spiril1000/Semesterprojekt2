@@ -65,6 +65,7 @@ public class BookingDB implements BookingDBIF {
 				else {
 					r = new ConferenceRoom(rs.getInt("confMaxCapacity"), rs.getInt("confMinCapacity"));
 				}
+				r.setRoomNumber(rs.getInt("roomNumber"));
 				Employee e = new Employee(rs.getString("employeeName"), rs.getInt("employeeId"), rs.getString("employeePhoneNo"));
 				Customer c = new Customer(rs.getString("customerName"), rs.getString("customerPhoneNo"), rs.getString("email"), rs.getString("address"), rs.getString("country"), rs.getString("cardNo"), 9000, "Aalborg");
 				c.setCustomerId(rs.getInt("customerId"));
