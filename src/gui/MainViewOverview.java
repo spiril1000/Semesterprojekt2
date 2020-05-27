@@ -60,6 +60,11 @@ import java.awt.event.MouseEvent;
 import com.toedter.components.JSpinField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
+import java.beans.PropertyChangeEvent;
+import javax.swing.event.PopupMenuListener;
+import javax.swing.event.PopupMenuEvent;
 
 
 public class MainViewOverview extends JPanel {
@@ -110,6 +115,8 @@ public class MainViewOverview extends JPanel {
 	private JComboBox confComboEndTime;
 	private JSpinner spinConfPplQty;
 	private JSpinner spinEventPplQty;
+	private JComboBox comboEventStartTime;
+	private JComboBox comboEventEndTime;
 	
 
 	/**
@@ -483,10 +490,32 @@ public class MainViewOverview extends JPanel {
 		
 		newHotelRoomBStartDate = new JDateChooser();
 		newHotelRoomBStartDate.setDate(Calendar.getInstance().getTime());
+		newHotelRoomBStartDate.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if(newHotelRoomBEndDate.getDate().getTime()<=newHotelRoomBStartDate.getDate().getTime()) {
+					Calendar newDate = newHotelRoomBStartDate.getCalendar();
+					newDate.add(Calendar.DATE, 1);
+					newHotelRoomBEndDate.setDate(newDate.getTime());
+				}
+				if(newHotelRoomBStartDate.getDate().getTime()<Calendar.getInstance().getTimeInMillis()) {
+					newHotelRoomBStartDate.setDate(Calendar.getInstance().getTime());
+				}
+			}
+		});
+		
 		newHotelRoomBStartDate.setBounds(159, 258, 153, 20);
 		panel_filterRooms.add(newHotelRoomBStartDate);
 		
 		newHotelRoomBEndDate = new JDateChooser();
+		newHotelRoomBEndDate.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if(newHotelRoomBEndDate.getDate().getTime()<=newHotelRoomBStartDate.getDate().getTime()) {
+					Calendar newDate = newHotelRoomBStartDate.getCalendar();
+					newDate.add(Calendar.DATE, 1);
+					newHotelRoomBEndDate.setDate(newDate.getTime());
+				}
+			}
+		});
 		Calendar firstEndDate = Calendar.getInstance();
 		firstEndDate.add(Calendar.DATE, 1);
 		newHotelRoomBEndDate.setDate(firstEndDate.getTime());
@@ -1024,6 +1053,13 @@ public class MainViewOverview extends JPanel {
 		ConfLeftScreenPanel.add(lblNewLabel_2_4);
 		
 		confDateChooser = new JDateChooser();
+		confDateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if(confDateChooser.getDate().getTime()<Calendar.getInstance().getTimeInMillis()) {
+					confDateChooser.setDate(Calendar.getInstance().getTime());
+				}
+			}
+		});
 		confDateChooser.setDate(Calendar.getInstance().getTime());
 		confDateChooser.setBounds(184, 97, 113, 26);
 		ConfLeftScreenPanel.add(confDateChooser);
@@ -1035,11 +1071,33 @@ public class MainViewOverview extends JPanel {
 		ConfLeftScreenPanel.add(lblNewLabel_2_4_1);
 		
 		confComboStartTime = new JComboBox();
+		confComboStartTime.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				if(confComboStartTime.getSelectedIndex()>confComboEndTime.getSelectedIndex()) {
+					confComboEndTime.setSelectedIndex(confComboStartTime.getSelectedIndex());
+				}
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+			}
+		});
 		confComboStartTime.setModel(new DefaultComboBoxModel(new String[] {"08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"}));
 		confComboStartTime.setBounds(184, 139, 113, 26);
 		ConfLeftScreenPanel.add(confComboStartTime);
 		
 		confComboEndTime = new JComboBox();
+		confComboEndTime.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				if(confComboStartTime.getSelectedIndex()>confComboEndTime.getSelectedIndex()) {
+					confComboEndTime.setSelectedIndex(confComboStartTime.getSelectedIndex());
+				}
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+			}
+		});
 		confComboEndTime.setModel(new DefaultComboBoxModel(new String[] {"09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"}));
 		confComboEndTime.setBounds(184, 195, 113, 26);
 		ConfLeftScreenPanel.add(confComboEndTime);
@@ -1167,6 +1225,13 @@ public class MainViewOverview extends JPanel {
 		EventLeftScreenPanel.add(spinEventPplQty);
 		
 		JDateChooser eventDateChooser = new JDateChooser();
+		eventDateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if(eventDateChooser.getDate().getTime()<Calendar.getInstance().getTimeInMillis()) {
+					eventDateChooser.setDate(Calendar.getInstance().getTime());
+				}
+			}
+		});
 		eventDateChooser.setDate(Calendar.getInstance().getTime());
 		eventDateChooser.setBounds(184, 97, 113, 26);
 		EventLeftScreenPanel.add(eventDateChooser);
@@ -1177,12 +1242,34 @@ public class MainViewOverview extends JPanel {
 		lblNewLabel_2_4_1_2.setBounds(15, 101, 97, 22);
 		EventLeftScreenPanel.add(lblNewLabel_2_4_1_2);
 		
-		JComboBox comboEventStartTime = new JComboBox();
+		comboEventStartTime = new JComboBox();
+		comboEventStartTime.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				if(comboEventStartTime.getSelectedIndex()>comboEventEndTime.getSelectedIndex()) {
+					comboEventEndTime.setSelectedIndex(comboEventStartTime.getSelectedIndex());
+				}
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+			}
+		});
 		comboEventStartTime.setModel(new DefaultComboBoxModel(new String[] {"08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"}));
 		comboEventStartTime.setBounds(184, 139, 113, 26);
 		EventLeftScreenPanel.add(comboEventStartTime);
 		
-		JComboBox comboEventEndTime = new JComboBox();
+		comboEventEndTime = new JComboBox();
+		comboEventEndTime.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				if(comboEventStartTime.getSelectedIndex()>comboEventEndTime.getSelectedIndex()) {
+					comboEventEndTime.setSelectedIndex(comboEventStartTime.getSelectedIndex());
+				}
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+			}
+		});
 		comboEventEndTime.setModel(new DefaultComboBoxModel(new String[] {"09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"}));
 		comboEventEndTime.setBounds(184, 195, 113, 26);
 		EventLeftScreenPanel.add(comboEventEndTime);
