@@ -366,10 +366,12 @@ public class MainViewOverview extends JPanel {
 		bg.add(rdbMonth);
 		bg.add(rdbCustom);
 		dcFilterStartDate = new JDateChooser();
+		dcFilterStartDate.setDate(Calendar.getInstance().getTime());
 		dcFilterStartDate.setBounds(6, 156, 145, 20);
 		panel_2.add(dcFilterStartDate);
 		
 		dcFilterEndDate = new JDateChooser();
+		dcFilterEndDate.setDate(Calendar.getInstance().getTime());
 		dcFilterEndDate.setBounds(6, 180, 145, 20);
 		panel_2.add(dcFilterEndDate);
 		
@@ -480,10 +482,14 @@ public class MainViewOverview extends JPanel {
 		panel_filterRooms.add(lblNewLabel_2_1);
 		
 		newHotelRoomBStartDate = new JDateChooser();
+		newHotelRoomBStartDate.setDate(Calendar.getInstance().getTime());
 		newHotelRoomBStartDate.setBounds(159, 258, 153, 20);
 		panel_filterRooms.add(newHotelRoomBStartDate);
 		
 		newHotelRoomBEndDate = new JDateChooser();
+		Calendar firstEndDate = Calendar.getInstance();
+		firstEndDate.add(Calendar.DATE, 1);
+		newHotelRoomBEndDate.setDate(firstEndDate.getTime());
 		newHotelRoomBEndDate.setBackground(new Color(220, 198, 133));
 		newHotelRoomBEndDate.setBounds(159, 294, 153, 20);
 		panel_filterRooms.add(newHotelRoomBEndDate);
@@ -547,6 +553,7 @@ public class MainViewOverview extends JPanel {
 		panel_filterRooms.add(AntalPersoner);
 		
 		spinner_AntalPersoner = new JSpinner();
+		spinner_AntalPersoner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spinner_AntalPersoner.setBounds(264, 185, 48, 26);
 		panel_filterRooms.add(spinner_AntalPersoner);
 		
@@ -1017,6 +1024,7 @@ public class MainViewOverview extends JPanel {
 		ConfLeftScreenPanel.add(lblNewLabel_2_4);
 		
 		confDateChooser = new JDateChooser();
+		confDateChooser.setDate(Calendar.getInstance().getTime());
 		confDateChooser.setBounds(184, 97, 113, 26);
 		ConfLeftScreenPanel.add(confDateChooser);
 		
@@ -1159,6 +1167,7 @@ public class MainViewOverview extends JPanel {
 		EventLeftScreenPanel.add(spinEventPplQty);
 		
 		JDateChooser eventDateChooser = new JDateChooser();
+		eventDateChooser.setDate(Calendar.getInstance().getTime());
 		eventDateChooser.setBounds(184, 97, 113, 26);
 		EventLeftScreenPanel.add(eventDateChooser);
 		
